@@ -18,6 +18,7 @@ namespace backend.Models
         [EmailAddress]
         public string Email { get; set; } = "";
 
+        [EmailAddress]
         public string? BackUpEmail { get; set; }
 
         public bool IsEmailConfirmed { get; set; } = false;

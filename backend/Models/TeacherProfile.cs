@@ -18,6 +18,7 @@ namespace backend.Models
         [EmailAddress]
         public string Email { get; set; } = "";
 
+        [EmailAddress]
         public string? BackUpEmail { get; set; }
 
         public bool IsEmailConfirmed { get; set; } = false;
@@ -26,6 +27,6 @@ namespace backend.Models
 
         public ICollection<Group> Groups { get; set; } = new List<Group>();
 
-        public ICollection<Unit> Units { get; set; } = new List<Unit>();
+        public ICollection<UnitTeacher> UnitTeachers { get; set; } = new List<UnitTeacher>();
     }
 }

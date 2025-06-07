@@ -1,6 +1,5 @@
 ﻿using backend.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace backend.Services
 {
@@ -20,5 +19,35 @@ namespace backend.Services
         public DbSet<Unit> Units { get; set; }
 
         public DbSet<Group> Groups { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UnitTeacher>()
+                .HasKey(sc => new { sc.UnitId, sc.TeacherId });
+
+            modelBuilder.Entity<UnitTeacher>()
+                .HasOne(sc => sc.Unit)
+                .WithMany(s => s.UnitTeachers)
+                .HasForeignKey(sc => sc.UnitId);
+
+            modelBuilder.Entity<UnitTeacher>()
+                .HasOne(sc => sc.Teacher)
+                .WithMany(s => s.UnitTeachers)
+                .HasForeignKey(sc => sc.TeacherId);
+
+
+            modelBuilder.Entity<GroupHomework>()
+                .HasKey(sc => new { sc.GroupId, sc.HomeworkId });
+
+            modelBuilder.Entity<GroupHomework>()
+                .HasOne(sc => sc.Group)
+                .WithMany(s => s.GroupHomeworks)
+                .HasForeignKey(sc => sc.GroupId);
+
+            modelBuilder.Entity<GroupHomework>()
+                .HasOne(sc => sc.Homework)
+                .WithMany(s => s.GroupHomeworks)
+                .HasForeignKey(sc => sc.HomeworkId);
+        }
     }
 }

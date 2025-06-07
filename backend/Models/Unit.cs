@@ -8,8 +8,8 @@
 
         public string? Description { get; set; }
 
-        public int TeacherProfileId {  get; set; }
+        public int? TeacherProfileId {  get; set; }
 
-        public TeacherProfile? TeacherProfile { get; set; }
+        public ICollection<UnitTeacher> UnitTeachers { get; set; } = new List<UnitTeacher>();
     }
 }
