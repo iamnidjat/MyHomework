@@ -25,6 +25,8 @@ builder.Services.AddDbContext<MyHomeworkDbContext>(options => {
 
 builder.Services.AddScoped<IHomeworkService, HomeworkService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<IGradeService, GradeService>();
+builder.Services.AddScoped(typeof(ICRUDBaseService<>), typeof(CRUDBaseService<>));
 
 var app = builder.Build();
 

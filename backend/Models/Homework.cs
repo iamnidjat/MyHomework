@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models
 {
-    public class Homework
+    public class Homework : IEntity
     {
         [Key]
         public int Id { get; set; }

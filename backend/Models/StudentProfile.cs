@@ -24,5 +24,7 @@ namespace backend.Models
         public bool IsEmailConfirmed { get; set; } = false;
 
         public DateTime Birthday { get; set; }
+
+        public ICollection<Grade> Grades { get; set; } = new List<Grade>();
     }
 }

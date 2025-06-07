@@ -3,7 +3,7 @@ using backend.Utilities;
 
 namespace backend.Services.Interfaces
 {
-    public interface IHomeworkService : ICRUDBaseService<Homework>
+    public interface IGradeService : ICRUDBaseService<Grade>
     {
         
     }

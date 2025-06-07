@@ -19,7 +19,7 @@ namespace backend.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> AddHomeworkAsync([FromBody] Homework homework)
         {
-            var result = await _homeworkService.AddHomeworkAsync(homework);
+            var result = await _homeworkService.AddAsync(homework);
 
             if (result.Success)
                 return StatusCode(201);
@@ -30,7 +30,7 @@ namespace backend.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetHomeworksAsync()
         {
-            var homeworks = await _homeworkService.GetHomeworksAsync();
+            var homeworks = await _homeworkService.GetAllAsync();
             if (homeworks == null || homeworks.Count == 0)
             {
                 return NotFound(new { Message = "Homeworks not found." });
@@ -43,7 +43,7 @@ namespace backend.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetHomeworkAsync(int id)
         {
-            var homework = await _homeworkService.GetHomeworkAsync(id);
+            var homework = await _homeworkService.GetByIdAsync(id);
             if (homework == null)
             {
                 return NotFound(new { Message = $"Homework with ID {id} not found." });
@@ -56,7 +56,7 @@ namespace backend.Controllers.v1
         //[HttpPatch("{id}")]
         public async Task<IActionResult> UpdateHomeworkAsync(int id, [FromBody] Homework newHomework)
         {
-            var result = await _homeworkService.UpdateHomeworkAsync(id, newHomework);
+            var result = await _homeworkService.UpdateAsync(id, newHomework);
 
             if (result.Success)
                 return NoContent();
@@ -67,7 +67,7 @@ namespace backend.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveHomeworkAsync(int id)
         {
-            var result = await _homeworkService.RemoveHomeworkAsync(id);
+            var result = await _homeworkService.RemoveAsync(id);
 
             if (result.Success)
                 return NoContent();

@@ -18,7 +18,7 @@ namespace backend.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> AddGroupAsync([FromBody] Group group)
         {
-            var result = await _groupService.AddGroupAsync(group);
+            var result = await _groupService.AddAsync(group);
 
             if (result.Success)
                 return StatusCode(201);
@@ -29,7 +29,7 @@ namespace backend.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetGroupsAsync()
         {
-            var groups = await _groupService.GetGroupsAsync();
+            var groups = await _groupService.GetAllAsync();
             if (groups == null || groups.Count == 0)
             {
                 return NotFound(new { Message = "Groups not found." });
@@ -42,7 +42,7 @@ namespace backend.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupAsync(int id)
         {
-            var group = await _groupService.GetGroupAsync(id);
+            var group = await _groupService.GetByIdAsync(id);
             if (group == null)
             {
                 return NotFound(new { Message = $"Group with ID {id} not found." });
@@ -55,7 +55,7 @@ namespace backend.Controllers.v1
         //[HttpPatch("{id}")]
         public async Task<IActionResult> UpdateGroupAsync(int id, [FromBody] Group newGroup)
         {
-            var result = await _groupService.UpdateGroupAsync(id, newGroup);
+            var result = await _groupService.UpdateAsync(id, newGroup);
 
             if (result.Success)
                 return NoContent();
@@ -66,7 +66,7 @@ namespace backend.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveGroupAsync(int id)
         {
-            var result = await _groupService.RemoveGroupAsync(id);
+            var result = await _groupService.RemoveAsync(id);
 
             if (result.Success)
                 return NoContent();

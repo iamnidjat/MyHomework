@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services.Implementations
 {
-    public class HomeworkService : CRUDBaseService<Homework>, IHomeworkService
+    public class GradeService : CRUDBaseService<Grade>, IGradeService
     {
-        public HomeworkService(MyHomeworkDbContext context, ILogger<HomeworkService> logger)
+        public GradeService(MyHomeworkDbContext context, ILogger<GradeService> logger)
         : base(context, logger)
-        {
-        }
+        {}
+
+
     }
 }

@@ -20,6 +20,8 @@ namespace backend.Services
 
         public DbSet<Group> Groups { get; set; }
 
+        public DbSet<Grade> Grades { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UnitTeacher>()
