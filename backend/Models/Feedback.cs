@@ -7,13 +7,14 @@ namespace backend.Models
         [Required]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Content is required")]
         public string Content { get; set; } = "";
 
-        [Required]
-        public string Type { get; set; } = ""; 
-
-        [Required]
+        [Required(ErrorMessage = "SendAt is required")]
         public DateTime SendAt { get; set; }
+
+        [Required(ErrorMessage = "HomeworkId is required")]
+        public int? HomeworkId { get; set; }
+        public Homework? Homework { get; set; }
     }
 }

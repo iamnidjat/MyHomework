@@ -19,6 +19,11 @@ namespace backend.Models
 
         [Required(ErrorMessage = "Deadline is required")]
         public DateTime Deadline { get; set; }
+        public ICollection<Like> Likes { get; set; } = new List<Like>();
+        public ICollection<Dislike> Dislikes { get; set; } = new List<Dislike>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
         public ICollection<GroupHomework> GroupHomeworks { get; set; } = new List<GroupHomework>();
     }

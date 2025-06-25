@@ -22,6 +22,14 @@ namespace backend.Services
 
         public DbSet<Grade> Grades { get; set; }
 
+        public DbSet<Feedback> Feedbacks { get; set; }
+
+        public DbSet<Like> Likes { get; set; }
+
+        public DbSet<Dislike> Dislikes { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UnitTeacher>()
