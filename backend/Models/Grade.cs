@@ -8,15 +8,15 @@ namespace backend.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Mark is required")]
         public float Mark {  get; set; } = 0;
             
-        [Required]
+        [Required(ErrorMessage = "UnitId is required")]
         public int? UnitId { get; set; }
 
         public Unit? Unit { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "StudentId is required")]
         public int? StudentId { get; set; }
 
         public StudentProfile? StudentProfile { get; set; }

@@ -14,10 +14,10 @@ namespace backend.Models
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "IssuedTime is required")]
         public DateTime IssuedTime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Deadline is required")]
         public DateTime Deadline { get; set; }
 
         public ICollection<GroupHomework> GroupHomeworks { get; set; } = new List<GroupHomework>();

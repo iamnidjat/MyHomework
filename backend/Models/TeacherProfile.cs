@@ -7,14 +7,14 @@ namespace backend.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; } = "";
 
         public string? Name { get; set; }
 
         public string? Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; } = "";
 
@@ -24,6 +24,8 @@ namespace backend.Models
         public bool IsEmailConfirmed { get; set; } = false;
 
         public DateTime Birthday { get; set; }
+
+        public string UserType { get; } = "teacher";
 
         public ICollection<Group> Groups { get; set; } = new List<Group>();
 
