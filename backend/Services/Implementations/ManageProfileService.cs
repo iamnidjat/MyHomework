@@ -116,7 +116,7 @@ namespace backend.Services.Implementations
             }
         }
 
-        public async Task<OperationResult> UpdateEmailAsync(int id, string newEmail, string userType)
+        public async Task<OperationResult> UpdateEmailAsync(int id, string newEmail, string userType, bool flag)
         {
             try
             {
@@ -125,8 +125,20 @@ namespace backend.Services.Implementations
                     var profile = await _context.StudentProfiles.FindAsync(id);
                     if (profile == null)
                         return new OperationResult { Success = false, ErrorMessage = "Student profile not found." };
-
-                    profile.Email = newEmail;
+                 
+                    if (flag)
+                    {
+                        profile.Email = newEmail;
+                        // send an email
+                    }
+                    else
+                    {
+                        profile.BackUpEmail = newEmail;
+                        //if (newEmail != "")
+                        //{
+                        //    // send an email
+                        //}
+                    }
                 }
                 else if (userType == "teacher")
                 {
@@ -134,7 +146,19 @@ namespace backend.Services.Implementations
                     if (profile == null)
                         return new OperationResult { Success = false, ErrorMessage = "Teacher profile not found." };
 
-                    profile.Email = newEmail;
+                    if (flag)
+                    {
+                        profile.Email = newEmail;
+                        // send an email
+                    }
+                    else
+                    {
+                        profile.BackUpEmail = newEmail;
+                        //if (newEmail != "")
+                        //{
+                        //    // send an email
+                        //}
+                    }
                 }
                 else
                 {
@@ -153,6 +177,35 @@ namespace backend.Services.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unexpected error occurred while updating email");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+        }
+
+        public async Task<OperationResult> DeleteStudentProfileAsync(int id)
+        {
+            try
+            {
+                var profile = await _context.StudentProfiles.FindAsync(id);
+
+                if (profile == null)
+                {
+                    return new OperationResult { Success = false, ErrorMessage = "Student profile not found." };
+                }
+
+                _context.StudentProfiles.Remove(profile);
+
+                await _context.SaveChangesAsync();
+
+                return new OperationResult { Success = true };
+            }
+            catch (Exception ex) when (ex is DbUpdateConcurrencyException or DbUpdateException or OperationCanceledException)
+            {
+                _logger.LogError(ex, "Failed to delete student profile");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while deleting student profile");
                 return new OperationResult { Success = false, ErrorMessage = ex.Message };
             }
         }

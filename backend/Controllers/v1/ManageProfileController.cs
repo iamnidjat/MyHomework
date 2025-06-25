@@ -1,4 +1,5 @@
 ﻿using backend.Models;
+using backend.Services.Implementations;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers.v1
 {
-    [Route("api/v1/manage-profile")]
+    [Route("api/v1/manage-profile")] // fixed route 
     [ApiController]
     public class ManageProfileController : ControllerBase
     {
@@ -54,9 +55,20 @@ namespace backend.Controllers.v1
 
         [HttpPut("{id}/email")]
         //[HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateEmailAsync(int id, string newEmail, string userType)
+        public async Task<IActionResult> UpdateEmailAsync(int id, string newEmail, string userType, bool flag)
         {
-            var result = await _manageProfileService.UpdateEmailAsync(id, newEmail, userType);
+            var result = await _manageProfileService.UpdateEmailAsync(id, newEmail, userType, flag);
+
+            if (result.Success)
+                return NoContent();
+            else
+                return StatusCode(500, new { message = result.ErrorMessage });
+        }
+
+        [HttpDelete("students/{id}")]
+        public async Task<IActionResult> DeleteStudentProfileAsync(int id)
+        {
+            var result = await _manageProfileService.DeleteStudentProfileAsync(id);
 
             if (result.Success)
                 return NoContent();

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers.v1
 {
-    [Route("api/v1/group/")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class GroupController : ControllerBase
     {
