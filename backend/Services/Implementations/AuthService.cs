@@ -23,6 +23,24 @@ namespace backend.Services.Implementations
             _jwtTokenService = jwtTokenService;
         }
 
+        public string GetRandomUsername()
+        {
+            try
+            {
+                var length = new Random().Next(5, 10);
+                return GeneratorService.GenerateCode(length);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                _logger.LogError(ex, "Failed to get a random username");
+                return "";
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while getting a random username");
+                return "";
+            }
+        }
         public async Task<AuthResponseDto?> StudentLoginAsync(string username, string password)
         {
             try
@@ -100,6 +118,32 @@ namespace backend.Services.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unexpected error occurred while signing up");
+                return null;
+            }
+        }
+
+        public async Task<bool?> IsStudentProfileFrozenAsync(string username)
+        {
+            try
+            {
+                var student = await _context.StudentProfiles.FirstOrDefaultAsync(u => u.Username == username);
+
+                if (student == null)
+                {
+                    _logger.LogWarning($"Student with the {username} username does not exist");
+                    return null;
+                }
+
+                return student.IsFrozen;
+            }
+            catch (Exception ex) when (ex is ArgumentNullException or OperationCanceledException)
+            {
+                _logger.LogError(ex, "Failed to detect whether the student profile is frozen");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while detecting whether the student profile is frozen");
                 return null;
             }
         }

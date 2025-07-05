@@ -30,10 +30,12 @@ namespace backend.Services
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<TeacherProfileClosingRequest> TeacherProfileClosingRequests { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UnitTeacher>()
-                .HasKey(sc => new { sc.UnitId, sc.TeacherId });
+                .HasKey(sc => new { sc.UnitId, sc.TeacherProfileId });
 
             modelBuilder.Entity<UnitTeacher>()
                 .HasOne(sc => sc.Unit)
@@ -41,9 +43,9 @@ namespace backend.Services
                 .HasForeignKey(sc => sc.UnitId);
 
             modelBuilder.Entity<UnitTeacher>()
-                .HasOne(sc => sc.Teacher)
+                .HasOne(sc => sc.TeacherProfile)
                 .WithMany(s => s.UnitTeachers)
-                .HasForeignKey(sc => sc.TeacherId);
+                .HasForeignKey(sc => sc.TeacherProfileId);
 
 
             modelBuilder.Entity<GroupHomework>()

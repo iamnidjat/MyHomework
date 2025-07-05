@@ -15,6 +15,12 @@ namespace backend.Controllers.v1
             _authService = authService;
         }
 
+        [HttpGet("random-username")]
+        public string GetRandomUsername()
+        {
+            return _authService.GetRandomUsername();
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> StudentLoginAsync([FromBody] LoginModel model)
         {
@@ -39,6 +45,13 @@ namespace backend.Controllers.v1
             }
 
             return StatusCode(201, authResponse);
+        }
+
+        [HttpGet("students/{username}/is-frozen")]
+        public async Task<ActionResult<bool?>> IsStudentProfileFrozenAsync(string username)
+        {
+            var result = await _authService.IsStudentProfileFrozenAsync(username);
+            return result is null ? NotFound() : Ok(result);
         }
     }
 }

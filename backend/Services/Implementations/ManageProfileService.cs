@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.DTOs;
+using backend.Models;
 using backend.Services.Interfaces;
 using backend.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -235,6 +236,35 @@ namespace backend.Services.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unexpected error occurred while freezing student profile");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+        }
+
+        public async Task<OperationResult> TeacherProfileClosingRequestAsync(CreateTeacherProfileClosingRequestDto dto)
+        {
+            try
+            {
+                var request = new TeacherProfileClosingRequest
+                {
+                    Username = dto.Username,
+                    Reason = dto.Reason,
+                    AdditionalInfo = dto.AdditionalInfo,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _context.TeacherProfileClosingRequests.AddAsync(request);
+                await _context.SaveChangesAsync();
+
+                return new OperationResult { Success = true };
+            }
+            catch (Exception ex) when (ex is DbUpdateConcurrencyException or DbUpdateException or OperationCanceledException)
+            {
+                _logger.LogError(ex, "Failed to create a teacher profile closing request");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while creating  a teacher profile closing request");
                 return new OperationResult { Success = false, ErrorMessage = ex.Message };
             }
         }

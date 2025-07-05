@@ -1,9 +1,11 @@
-﻿using backend.Models;
+﻿using backend.DTOs;
+using backend.Models;
 using backend.Services.Implementations;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers.v1
 {
@@ -80,6 +82,17 @@ namespace backend.Controllers.v1
         public async Task<IActionResult> FreezeStudentProfileAsync(int id)
         {
             var result = await _manageProfileService.FreezeStudentProfileAsync(id);
+
+            if (result.Success)
+                return NoContent();
+            else
+                return StatusCode(500, new { message = result.ErrorMessage });
+        }
+
+        [HttpPost("teacher-profile-closing-request")]
+        public async Task<IActionResult> TeacherProfileClosingRequestAsync([FromBody] CreateTeacherProfileClosingRequestDto dto)
+        {
+            var result = await _manageProfileService.TeacherProfileClosingRequestAsync(dto);
 
             if (result.Success)
                 return NoContent();

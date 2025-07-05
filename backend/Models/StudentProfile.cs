@@ -23,9 +23,9 @@ namespace backend.Models
 
         public bool IsEmailConfirmed { get; set; } = false;
 
-        public string UserType { get; } = "student";
-
         public DateTime Birthday { get; set; }
+
+        public string UserType { get; } = "student";
 
         public bool IsFrozen { get; set; } = false;
 

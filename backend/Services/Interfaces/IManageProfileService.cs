@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.DTOs;
+using backend.Models;
 using backend.Utilities;
 
 namespace backend.Services.Interfaces
@@ -11,5 +12,6 @@ namespace backend.Services.Interfaces
         Task<OperationResult> UpdateEmailAsync(int id, string newEmail, string userType, bool flag);
         Task<OperationResult> DeleteStudentProfileAsync(int id);
         Task<OperationResult> FreezeStudentProfileAsync(int id);
+        Task<OperationResult> TeacherProfileClosingRequestAsync(CreateTeacherProfileClosingRequestDto dto);
     }
 }
