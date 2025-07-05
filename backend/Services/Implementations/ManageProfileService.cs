@@ -209,5 +209,34 @@ namespace backend.Services.Implementations
                 return new OperationResult { Success = false, ErrorMessage = ex.Message };
             }
         }
+
+        public async Task<OperationResult> FreezeStudentProfileAsync(int id)
+        {
+            try
+            {
+                var profile = await _context.StudentProfiles.FindAsync(id);
+
+                if (profile == null)
+                {
+                    return new OperationResult { Success = false, ErrorMessage = "Student profile not found." };
+                }
+
+                profile.IsFrozen = true;
+
+                await _context.SaveChangesAsync();
+
+                return new OperationResult { Success = true };
+            }
+            catch (Exception ex) when (ex is DbUpdateConcurrencyException or DbUpdateException or OperationCanceledException)
+            {
+                _logger.LogError(ex, "Failed to freeze student profile");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while freezing student profile");
+                return new OperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         public int UnitId { get; set; }
         public Unit? Unit { get; set; }
 
-        public int TeacherId { get; set; }
-        public TeacherProfile? Teacher { get; set; }
+        public int TeacherProfileId { get; set; }
+        public TeacherProfile? TeacherProfile { get; set; }
     }
 }

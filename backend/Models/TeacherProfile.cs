@@ -32,8 +32,6 @@ namespace backend.Models
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Group> Groups { get; set; } = new List<Group>();
 
-       // public ICollection<Unit> Units { get; set; } = new List<Unit>();
-
         public ICollection<UnitTeacher> UnitTeachers { get; set; } = new List<UnitTeacher>();
     }
 }

@@ -10,5 +10,6 @@ namespace backend.Services.Interfaces
         Task<OperationResult> UpdateUsernameAsync(int id, string newUsername, string userType);
         Task<OperationResult> UpdateEmailAsync(int id, string newEmail, string userType, bool flag);
         Task<OperationResult> DeleteStudentProfileAsync(int id);
+        Task<OperationResult> FreezeStudentProfileAsync(int id);
     }
 }

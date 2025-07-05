@@ -75,5 +75,16 @@ namespace backend.Controllers.v1
             else
                 return StatusCode(500, new { message = result.ErrorMessage });
         }
+
+        [HttpPost("students/{id}")]
+        public async Task<IActionResult> FreezeStudentProfileAsync(int id)
+        {
+            var result = await _manageProfileService.FreezeStudentProfileAsync(id);
+
+            if (result.Success)
+                return NoContent();
+            else
+                return StatusCode(500, new { message = result.ErrorMessage });
+        }
     }
 }

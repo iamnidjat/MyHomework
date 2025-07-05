@@ -13,10 +13,6 @@ namespace backend.Models
 
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; } = "";
-
-        //public int? TeacherProfileId {  get; set; }
-
-        //public TeacherProfile? TeacherProfile { get; set; }
         public ICollection<Grade> Grades { get; set; } = new List<Grade>();
 
         public ICollection<UnitTeacher> UnitTeachers { get; set; } = new List<UnitTeacher>();

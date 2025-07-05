@@ -27,6 +27,8 @@ namespace backend.Models
 
         public DateTime Birthday { get; set; }
 
+        public bool IsFrozen { get; set; } = false;
+
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Dislike> Dislikes { get; set; } = new List<Dislike>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
