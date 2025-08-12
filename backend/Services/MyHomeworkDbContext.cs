@@ -16,6 +16,8 @@ namespace backend.Services
 
         public DbSet<Homework> Homeworks { get; set; }
 
+        public DbSet<Announcement> Announcements { get; set; }
+
         public DbSet<Unit> Units { get; set; }
 
         public DbSet<Group> Groups { get; set; }

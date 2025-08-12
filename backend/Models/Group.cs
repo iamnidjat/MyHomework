@@ -16,6 +16,8 @@ namespace backend.Models
 
         public int? TeacherProfileId { get; set; }
 
+        public bool IsPublic { get; set; } = false;
+
         public TeacherProfile? TeacherProfile { get; set; }
 
         public ICollection<GroupHomework> GroupHomeworks { get; set; } = new List<GroupHomework>();

@@ -34,6 +34,7 @@ builder.Services.AddScoped<IInteractionService, InteractionService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<IJwtTokenService,  JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 builder.Services.AddScoped(typeof(ICRUDBaseService<>), typeof(CRUDBaseService<>));
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

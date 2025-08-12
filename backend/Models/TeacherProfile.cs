@@ -31,7 +31,7 @@ namespace backend.Models
         public ICollection<Dislike> Dislikes { get; set; } = new List<Dislike>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Group> Groups { get; set; } = new List<Group>();
-
+        public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
         public ICollection<UnitTeacher> UnitTeachers { get; set; } = new List<UnitTeacher>();
     }
 }
