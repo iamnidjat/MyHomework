@@ -24,13 +24,21 @@ export class AuthComponent {
   constructor(private router: Router) {}
 
   public login() {
+    if (!this.credentials.username || !this.credentials.password) {
+      alert("Username and password are required");
+      return;
+    }
+
     this.authService.login(this.credentials).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigate(['/main-page']);
+        localStorage.setItem('student-data', JSON.stringify(response));
+        this.router.navigate(['/main-page',response.userId]);
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error(err);
+        alert("Incorrect credentials");
+      }
     });
   }
-
 }

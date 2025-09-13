@@ -13,7 +13,7 @@ import {Register} from '../models/register';
 export class AuthService {
   private readonly API_URL: string = "https://localhost:7294/api/v1/Auth";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public login(credentials: Login): Observable<AuthResponseDto> {
     return this.http.post<AuthResponseDto>(`${this.API_URL}/login`, credentials)

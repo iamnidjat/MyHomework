@@ -1,1 +1,50 @@
-<p>registration-page works!</p>
+<div class="main-container">
+  <div class="form-container">
+    <form #form="ngForm" (ngSubmit)="signup()">
+      <div class="username-container">
+        <input type="text" placeholder="Enter your username..." [(ngModel)]="credentials.username" required minlength="3" name="username" #username="ngModel"/>
+        <button (click)="getRandomUsername()"></button>
+      </div>
+      <!--    show errors for username-->
+      <div *ngIf="username.invalid && username.touched" class="error">
+        <div *ngIf="username.errors?.['required']">Username is required.</div>
+        <div *ngIf="username.errors?.['minlength']">
+          Username must be at least {{username.errors?.['minlength'].requiredLength}} characters
+        </div>
+      </div>
+
+      <input type="password" placeholder="Enter your password..." [(ngModel)]="credentials.password" required minlength="5" name="password" #password="ngModel"/>
+      <!--    show errors for password-->
+      <div *ngIf="password.invalid && password.touched" class="error">
+        <div *ngIf="password.errors?.['required']">Password is required.</div>
+        <div *ngIf="password.errors?.['minlength']">
+          Password must be at least {{password.errors?.['minlength'].requiredLength}} characters
+        </div>
+      </div>
+
+      <input type="password" placeholder="Confirm your password..." [(ngModel)]="credentials.confirmPassword" required name="confirm-password" #confirmPassword="ngModel"/>
+      <!--    show errors for confirm password-->
+      <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="error">
+        <div *ngIf="confirmPassword.errors?.['required']">Confirm your password.</div>
+      </div>
+
+      <input type="email" placeholder="Enter your email..." [(ngModel)]="credentials.email" name="email" email required #email="ngModel"/>
+      <!--    show errors for email-->
+      <div *ngIf="email.invalid && email.touched" class="error">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Enter a valid email address.</div>
+      </div>
+
+      <input type="date" placeholder="Enter your birthdate..." [(ngModel)]="credentials.birthdate" name="birthdate" required #birthdate="ngModel"/>
+      <!--    show errors for confirm birthdate-->
+      <div *ngIf="birthdate.invalid && birthdate.touched" class="error">
+        <div *ngIf="birthdate.errors?.['required']">Birthdate is required.</div>
+      </div>
+
+      <input type="submit" value="Sign up" [disabled]="form.invalid"/>
+      <label>If you have an account, please
+        <a routerLink="/auth" class="signup-link">log in</a>
+      </label>
+    </form>
+  </div>
+</div>

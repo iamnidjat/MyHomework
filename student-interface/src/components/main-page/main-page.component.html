@@ -1,1 +1,17 @@
-<p>main-page works!</p>
+<div>
+  <div>
+    <input type="text" placeholder="Type the group number..."/>
+    @if(studentGroups.length > 0) {
+      @for(group of studentGroups; track group.id)
+      {
+        <div class="group" [routerLink]="['/group', group.id]">
+          <span>{{group.name}}</span>
+          <span>{{group.description}}</span>
+        </div>
+      }
+    }
+    @else {
+      <div>Currently you are not enrolled in any group :(</div>
+    }
+  </div>
+</div>
